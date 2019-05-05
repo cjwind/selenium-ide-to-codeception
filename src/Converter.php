@@ -41,6 +41,7 @@ class Converter
 
     private function outputCode($codeLines)
     {
+        echo '$I = new AcceptanceTester($scenario);' . "\n";
         echo implode("\n", $codeLines);
         echo "\n";
     }
