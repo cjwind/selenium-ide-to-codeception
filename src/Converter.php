@@ -4,15 +4,15 @@ class Converter
     public function convertSeleniumProject($filename)
     {
         $projectContent = json_decode(file_get_contents($filename), true);
-        $outputs = $this->convert($projectContent);
+        $codeLines = $this->convert($projectContent);
 
         $this->outputPhpStartTag();
-        $this->outputCode($outputs);
+        $this->outputCode($codeLines);
     }
 
     private function convert($projectContent)
     {
-        $outputs = [];
+        $codeLines = [];
         foreach ($projectContent['tests'] as $test) {
             foreach ($test['commands'] as $command) {
                 if (!empty($command['target'])) {
@@ -23,15 +23,15 @@ class Converter
 
                 switch ($command['command']) {
                     case 'click':
-                        $outputs[] = '$I->click("' . $command['target'] . '");';
+                        $codeLines[] = '$I->click("' . $command['target'] . '");';
                         break;
                     default:
-                        $outputs[] = '// TODO ' . $command['command'] . ' ' . $command['target'];
+                        $codeLines[] = '// TODO ' . $command['command'] . ' ' . $command['target'];
                         break;
                 }
             }
         }
-        return $outputs;
+        return $codeLines;
     }
 
     private function outputPhpStartTag()
