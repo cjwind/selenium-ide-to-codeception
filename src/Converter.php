@@ -7,9 +7,7 @@ class Converter
         $outputs = $this->convert($projectContent);
 
         $this->outputPhpStartTag();
-
-        echo implode("\n", $outputs);
-        echo "\n";
+        $this->outputCode($outputs);
     }
 
     private function convert($projectContent)
@@ -39,6 +37,12 @@ class Converter
     private function outputPhpStartTag()
     {
         echo "<?php\n";
+    }
+
+    private function outputCode($codeLines)
+    {
+        echo implode("\n", $codeLines);
+        echo "\n";
     }
 }
 
