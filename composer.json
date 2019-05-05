@@ -1,0 +1,13 @@
+{
+    "name": "cjwind/selenium-ide-to-codeception",
+    "description": "Convert Selenium IDE test case to Codeception.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "cjwind",
+            "email": "cwentsai@gmail.com"
+        }
+    ],
+    "require": {}
+}
