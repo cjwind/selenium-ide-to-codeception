@@ -4,9 +4,16 @@ class Converter
     public function convertSeleniumProject($filename)
     {
         $projectContent = json_decode(file_get_contents($filename), true);
+        $outputs = $this->convert($projectContent);
 
         $this->outputPhpStartTag();
 
+        echo implode("\n", $outputs);
+        echo "\n";
+    }
+
+    private function convert($projectContent)
+    {
         $outputs = [];
         foreach ($projectContent['tests'] as $test) {
             foreach ($test['commands'] as $command) {
@@ -26,9 +33,7 @@ class Converter
                 }
             }
         }
-
-        echo implode("\n", $outputs);
-        echo "\n";
+        return $outputs;
     }
 
     private function outputPhpStartTag()
