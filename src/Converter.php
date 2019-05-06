@@ -29,15 +29,15 @@ class Converter
                         $codeLines[] = '$I->click(\'' . $command['target'] . '\');';
                         break;
                     case 'waitForElementNotVisible':
-                        $waitTime = ($command['value'] / 1000) <= 0 ? 1 : ($command['value'] / 1000);
+                        $waitTime = $this->calcWaitTime($command['value']);
                         $codeLines[] = '$I->waitForElementNotVisible(\'' . $command['target'] . '\', ' . $waitTime . ')';
                         break;
                     case 'waitForElementVisible':
-                        $waitTime = ($command['value'] / 1000) <= 0 ? 1 : ($command['value'] / 1000);
+                        $waitTime = $this->calcWaitTime($command['value']);
                         $codeLines[] = '$I->waitForElementVisible(\'' . $command['target'] . '\', ' . $waitTime . ')';
                         break;
                     case 'waitForElementPresent':
-                        $waitTime = ($command['value'] / 1000) <= 0 ? 1 : ($command['value'] / 1000);
+                        $waitTime = $this->calcWaitTime($command['value']);
                         $codeLines[] = '$I->waitForElement(\'' . $command['target'] . '\', ' . $waitTime . ')';
                         break;
                     case 'waitForElementNotPresent':
@@ -52,6 +52,11 @@ class Converter
         return $codeLines;
     }
 
+    private function calcWaitTime($waitTime)
+    {
+        return ($waitTime / 1000) <= 1 ? 1 : ($waitTime / 1000);
+    }
+
     private function outputPhpStartTag()
     {
         echo "<?php\n";
@@ -64,4 +69,3 @@ class Converter
         echo "\n";
     }
 }
-
