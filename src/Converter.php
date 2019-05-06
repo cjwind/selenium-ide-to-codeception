@@ -22,11 +22,29 @@ class Converter
                 }
 
                 switch ($command['command']) {
-                    case 'click':
-                        $codeLines[] = '$I->click("' . $command['target'] . '");';
+                    case 'open':
+                        $codeLines[] = '$I->amOnPage(\'' . $command['target'] . '\');';
                         break;
+                    case 'click':
+                        $codeLines[] = '$I->click(\'' . $command['target'] . '\');';
+                        break;
+                    case 'waitForElementNotVisible':
+                        $waitTime = ($command['value'] / 1000) <= 0 ? 1 : ($command['value'] / 1000);
+                        $codeLines[] = '$I->waitForElementNotVisible(\'' . $command['target'] . '\', ' . $waitTime . ')';
+                        break;
+                    case 'waitForElementVisible':
+                        $waitTime = ($command['value'] / 1000) <= 0 ? 1 : ($command['value'] / 1000);
+                        $codeLines[] = '$I->waitForElementVisible(\'' . $command['target'] . '\', ' . $waitTime . ')';
+                        break;
+                    case 'waitForElementPresent':
+                        $waitTime = ($command['value'] / 1000) <= 0 ? 1 : ($command['value'] / 1000);
+                        $codeLines[] = '$I->waitForElement(\'' . $command['target'] . '\', ' . $waitTime . ')';
+                        break;
+                    case 'waitForElementNotPresent':
+                    case 'waitForElementNotEditable':
+                    case 'waitForElementEditable':
                     default:
-                        $codeLines[] = '// TODO ' . $command['command'] . ' ' . $command['target'];
+                        $codeLines[] = '// TODO ' . $command['command'] . ' "' . $command['target'] . '"';
                         break;
                 }
             }
