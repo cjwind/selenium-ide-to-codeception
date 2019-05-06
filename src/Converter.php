@@ -29,15 +29,15 @@ class Converter
                         $codeLines[] = '$I->click(\'' . $command['target'] . '\');';
                         break;
                     case 'waitForElementNotVisible':
-                        $waitTime = $this->calcWaitTime($command['value']);
+                        $waitTime = (int)$this->calcWaitTime($command['value']);
                         $codeLines[] = '$I->waitForElementNotVisible(\'' . $command['target'] . '\', ' . $waitTime . ')';
                         break;
                     case 'waitForElementVisible':
-                        $waitTime = $this->calcWaitTime($command['value']);
+                        $waitTime = (int)$this->calcWaitTime($command['value']);
                         $codeLines[] = '$I->waitForElementVisible(\'' . $command['target'] . '\', ' . $waitTime . ')';
                         break;
                     case 'waitForElementPresent':
-                        $waitTime = $this->calcWaitTime($command['value']);
+                        $waitTime = (int)$this->calcWaitTime($command['value']);
                         $codeLines[] = '$I->waitForElement(\'' . $command['target'] . '\', ' . $waitTime . ')';
                         break;
                     case 'waitForElementNotPresent':
