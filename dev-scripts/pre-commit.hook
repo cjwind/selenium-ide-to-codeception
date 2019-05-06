@@ -2,17 +2,19 @@
 FILES=`git diff --cached --name-only --diff-filter=ACMR | grep -E "\.(php)$"`
 
 RET=0
-for FILE in $FILES; do
-    ./vendor/bin/php-cs-fixer fix $FILE --dry-run > /dev/null 2>&1 || RET=1
+for FILE in ${FILES}; do
+    TMP_FILE=`git checkout-index --temp ${FILE} | cut -f 1`
+    ./vendor/bin/php-cs-fixer fix ${TMP_FILE} --dry-run > /dev/null 2>&1 || RET=1
+    rm "${TMP_FILE}"
 
-    if [ $RET -eq 1 ]; then
-        echo "$FILE does not follow the coding style."
+    if [ ${RET} -eq 1 ]; then
+        echo "${FILE} does not follow the coding style."
     fi
 done
 
-if [ $RET -eq 1 ]; then
+if [ ${RET} -eq 1 ]; then
     echo ""
     echo "Run './vendor/bin/php-cs-fixer fix [path]' to fix coding style."
 fi
 
-exit $RET
+exit ${RET}
