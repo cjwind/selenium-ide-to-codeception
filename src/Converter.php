@@ -1,22 +1,64 @@
 <?php
 class Converter
 {
+    /**
+     * Convert Selenium IDE project file *.side to codeception code.
+     *
+     * @param string $filename *.side
+     * @return array [[
+     *      'name' => string,
+     *      'tests' => [[
+     *          'id' => string,
+     *          'name' => string,
+     *          'codeLines' => array,
+     *      ]]
+     * ]]
+     */
     public function convertSeleniumProject($filename)
     {
         $projectContent = json_decode(file_get_contents($filename), true);
-        $codeLines = $this->convert($projectContent);
-
-        $this->outputPhpStartTag();
-        $this->outputCode($codeLines);
+        return $this->convert($projectContent);
     }
 
     private function convert($projectContent)
     {
-        $codeLines = [];
+        $tests = [];
         foreach ($projectContent['tests'] as $test) {
-            $codeLines = array_merge($codeLines, $this->convertTest($test));
+            $tests[$test['id']] = [
+                'id' => $test['id'],
+                'name' => $test['name'],
+                'codeLines' => $this->convertTest($test),
+            ];
         }
-        return $codeLines;
+
+        $inSuiteTestIds = [];
+        $testSuites = [];
+        foreach ($projectContent['suites'] as $suite) {
+            $testSuite = [
+                'name' => $suite['name'],
+                'tests' => [],
+            ];
+
+            foreach ($suite['tests'] as $testId) {
+                $testSuite['tests'][] = $tests[$testId];
+                $inSuiteTestIds[] = $testId;
+            }
+
+            $testSuites[] = $testSuite;
+        }
+
+        $defaultTestSuite = [
+            'name' => 'DefaultTestSuite',
+            'tests' => [],
+        ];
+        foreach ($tests as $id => $test) {
+            if (!in_array($id, $inSuiteTestIds)) {
+                $defaultTestSuite['tests'][] = $test;
+            }
+        }
+        $testSuites[] = $defaultTestSuite;
+
+        return $testSuites;
     }
 
     private function convertTest(&$test)
@@ -24,15 +66,12 @@ class Converter
         $codeLines = [];
 
         foreach ($test['commands'] as $command) {
-            // TODO 還有別的格式嗎？
             if (!empty($command['target'])) {
                 $command['target'] = str_replace('css=', '', $command['target']);
                 $command['target'] = str_replace('linkText=', '', $command['target']);
                 $command['target'] = str_replace('xpath=', '', $command['target']);
             }
 
-            // TODO support Selenium IDE API
-            // TODO target 不知道要用 " 還是用 ' 包起來比較好
             switch ($command['command']) {
                 case 'addSelection':
                     // TODO
@@ -299,17 +338,5 @@ class Converter
     private function calcWaitTime($waitTime)
     {
         return ($waitTime / 1000) <= 1 ? 1 : ($waitTime / 1000);
-    }
-
-    private function outputPhpStartTag()
-    {
-        echo "<?php\n";
-    }
-
-    private function outputCode($codeLines)
-    {
-        echo '$I = new AcceptanceTester($scenario);' . "\n";
-        echo implode("\n", $codeLines);
-        echo "\n";
     }
 }
