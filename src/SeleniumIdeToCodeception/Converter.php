@@ -1,4 +1,6 @@
 <?php
+namespace cjwind\SeleniumIdeToCodeception;
+
 class Converter
 {
     /**

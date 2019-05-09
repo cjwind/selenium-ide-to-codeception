@@ -9,6 +9,11 @@
             "email": "cwentsai@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "cjwind\\": "src/"
+        }
+    },
     "require": {},
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15"
