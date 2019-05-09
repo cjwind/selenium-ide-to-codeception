@@ -1,0 +1,76 @@
+{
+  "id": "1a7742e8-e60b-45fe-8340-c1cc8a5ddc12",
+  "version": "2.0",
+  "name": "ProjectForStructure",
+  "url": "https://pchometravel.com/",
+  "tests": [{
+    "id": "520fa4a2-4380-490a-bb5a-1603205b0e17",
+    "name": "Selenium site",
+    "commands": [{
+      "id": "0be9ff89-7fbe-4bc6-a1f6-d2a0a8bdd94b",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5af7c89c-ac45-4a8d-a080-c654befde016",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x900",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b7127c6b-d9bf-443e-915e-4438d82611ce",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Projects",
+      "targets": [
+        ["linkText=Projects", "linkText"],
+        ["css=#menu_projects > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Projects')]", "xpath:link"],
+        ["xpath=//li[@id='menu_projects']/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/projects/')]", "xpath:href"],
+        ["xpath=//li[5]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Projects')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "72f4ab60-508b-4a03-a195-3ea057591e24",
+    "name": "Google",
+    "commands": [{
+      "id": "78fddd3b-7093-4252-a9fd-fa89e1c4c370",
+      "comment": "",
+      "command": "open",
+      "target": "https://www.google.com",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "8cceaaf4-8278-46cd-b85e-e599931858e9",
+    "name": "Yahoo",
+    "commands": []
+  }, {
+    "id": "c21fa64f-f9d6-40e9-af7d-f32f6cbd90f5",
+    "name": "Facebook",
+    "commands": []
+  }],
+  "suites": [{
+    "id": "a41d1ee0-e8c2-4113-98e9-c9519d6e1ffd",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["520fa4a2-4380-490a-bb5a-1603205b0e17"]
+  }, {
+    "id": "26a2ebda-fc87-4cfa-a442-92f519704a89",
+    "name": "Hello",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["520fa4a2-4380-490a-bb5a-1603205b0e17", "72f4ab60-508b-4a03-a195-3ea057591e24", "8cceaaf4-8278-46cd-b85e-e599931858e9"]
+  }],
+  "urls": ["https://www.seleniumhq.org/", "https://pchometravel.com/"],
+  "plugins": []
+}
