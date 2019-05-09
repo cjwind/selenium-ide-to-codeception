@@ -14,6 +14,9 @@
             "cjwind\\": "src/"
         }
     },
+    "scripts": {
+        "test": "./vendor/bin/phpunit --color=always --bootstrap vendor/autoload.php tests"
+    },
     "require": {},
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",
