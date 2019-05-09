@@ -10,13 +10,13 @@ final class ConverterTest extends TestCase
         $suites = $converter->convertSeleniumProject(__DIR__ . '/data/ProjectForStructure.side');
 
         $this->assertCount(3, $suites);
-        $this->assertEquals('Default Suite', $suites[0]['name']);
+        $this->assertEquals('DefaultSuite', $suites[0]['name']);
         $this->assertCount(1, $suites[0]['tests']);
-        $this->assertEquals('Selenium site', $suites[0]['tests'][0]['name']);
+        $this->assertEquals('Seleniumsite', $suites[0]['tests'][0]['name']);
         $this->assertNotEmpty($suites[0]['tests'][0]['codeLines']);
         $this->assertEquals('Hello', $suites[1]['name']);
         $this->assertCount(3, $suites[1]['tests']);
-        $this->assertEquals('Selenium site', $suites[1]['tests'][0]['name']);
+        $this->assertEquals('Seleniumsite', $suites[1]['tests'][0]['name']);
         $this->assertNotEmpty($suites[1]['tests'][0]['codeLines']);
         $this->assertEquals('Google', $suites[1]['tests'][1]['name']);
         $this->assertNotEmpty($suites[1]['tests'][1]['codeLines']);

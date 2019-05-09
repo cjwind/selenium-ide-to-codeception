@@ -28,7 +28,7 @@ class Converter
         foreach ($projectContent['tests'] as $test) {
             $tests[$test['id']] = [
                 'id' => $test['id'],
-                'name' => $test['name'],
+                'name' => str_replace(' ', '', $test['name']),
                 'codeLines' => $this->convertTest($test),
             ];
         }
@@ -37,7 +37,7 @@ class Converter
         $testSuites = [];
         foreach ($projectContent['suites'] as $suite) {
             $testSuite = [
-                'name' => $suite['name'],
+                'name' => str_replace(' ', '', $suite['name']),
                 'tests' => [],
             ];
 
