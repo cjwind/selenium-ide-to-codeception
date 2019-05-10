@@ -15,7 +15,7 @@ class OutputFormatter
         if ($outputType == self::OUTPUT_TYPE_CEST) {
             $this->outputCest($testSuites, $outputDirectory);
         } elseif ($outputType == self::OUTPUT_TYPE_CEPT) {
-            // TODO
+            $this->outputCept($testSuites, $outputDirectory);
         }
     }
 
@@ -75,5 +75,20 @@ class OutputFormatter
     private function genCestClassEnd()
     {
         return ['}'];
+    }
+
+    public function outputCept($testSuites, $outputDirectory)
+    {
+        foreach ($testSuites as $testSuite) {
+            foreach ($testSuite['tests'] as $test) {
+                $content = [];
+                $content[] = self::PHP_START_TAG;
+                $content[] = '$I = new AcceptanceTester($scenario);';
+                $content = array_merge($content, $test['codeLines']);
+
+                $filename = $test['name'] . 'Cept.php';
+                file_put_contents($outputDirectory . '/' . $filename, implode("\n", $content));
+            }
+        }
     }
 }
