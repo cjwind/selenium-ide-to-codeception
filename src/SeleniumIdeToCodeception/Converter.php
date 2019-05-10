@@ -18,6 +18,14 @@ class Converter
      */
     public function convertSeleniumProject($filename)
     {
+        if (!file_exists($filename)) {
+            throw new \Exception($filename . ' does not exist');
+        } else {
+            if (!is_file($filename)) {
+                throw new \Exception($filename.' is not a file');
+            }
+        }
+
         $projectContent = json_decode(file_get_contents($filename), true);
         return $this->convert($projectContent);
     }
