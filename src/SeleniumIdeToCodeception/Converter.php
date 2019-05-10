@@ -306,15 +306,15 @@ class Converter
                     break;
                 case 'waitForElementNotVisible':
                     $waitTime = (int)$this->calcWaitTime($command['value']);
-                    $codeLines[] = '$I->waitForElementNotVisible(\'' . $command['target'] . '\', ' . $waitTime . ')';
+                    $codeLines[] = '$I->waitForElementNotVisible(\'' . $command['target'] . '\', ' . $waitTime . ');';
                     break;
                 case 'waitForElementPresent':
                     $waitTime = (int)$this->calcWaitTime($command['value']);
-                    $codeLines[] = '$I->waitForElement(\'' . $command['target'] . '\', ' . $waitTime . ')';
+                    $codeLines[] = '$I->waitForElement(\'' . $command['target'] . '\', ' . $waitTime . ');';
                     break;
                 case 'waitForElementVisible':
                     $waitTime = (int)$this->calcWaitTime($command['value']);
-                    $codeLines[] = '$I->waitForElementVisible(\'' . $command['target'] . '\', ' . $waitTime . ')';
+                    $codeLines[] = '$I->waitForElementVisible(\'' . $command['target'] . '\', ' . $waitTime . ');';
                     break;
                 case 'webdriverAnswerOnVisiblePrompt':
                     // TODO
