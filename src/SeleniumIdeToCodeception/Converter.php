@@ -27,6 +27,11 @@ class Converter
         }
 
         $projectContent = json_decode(file_get_contents($filename), true);
+
+        if ($projectContent === null) {
+            throw new \Exception($filename.' can not be parsed. Is it a valid json file?');
+        }
+
         return $this->convert($projectContent);
     }
 
